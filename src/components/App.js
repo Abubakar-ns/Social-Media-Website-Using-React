@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
+
+import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
+
 import { PostsList } from './';
 class App extends React.Component {
   //fetch post from api
@@ -25,6 +28,9 @@ function mapStatetoProps(state){
   return {
     posts: state.posts,
   }
+}
+App.propTypes = {
+  posts: propTypes.array.isRequired,
 }
 //connect componetns to store
 export default connect(mapStatetoProps)(App);

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
+import propTypes from 'prop-types';
 class PostsList extends Component {
   render() {
     const { posts } = this.props;
-    console.log('posts12',posts);
     return (
       <div className="posts-list">
         {posts.map((post) => (
@@ -61,4 +60,9 @@ class PostsList extends Component {
   }
 }
 
+//prop-types
+PostsList.propTypes={
+  //types of props this postlist component can have here array
+  posts: propTypes.array.isRequired,
+}
 export default PostsList;

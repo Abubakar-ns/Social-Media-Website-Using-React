@@ -1,10 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
+import { BrowserRouter as Router,Link,Route} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
-
-import { PostsList } from './';
+import { PostsList,Navbar } from './';
+//dummy components
+const login = () =>(
+  <div>Login</div>
+)
+const signup = () =>(
+  <div>SignUp</div>
+)
+const home = () =>(
+  <div>Home</div>
+)
 class App extends React.Component {
   //fetch post from api
   componentDidMount() {
@@ -17,57 +26,32 @@ class App extends React.Component {
     //console.log('Props',this.props);
     const {posts} = this.props;
     return (
-      <div>
-        {/* navbar */}
-        <nav className="nav">
-          <div className="left-div">
-            <img src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png" alt="logo"></img>
+      <Router>
+          <div>
+            {/* navbar */}
+            <Navbar/>
+            {/* we passed posts as props in postlist */}
+            {/* <PostsList posts={posts} /> */}
+            {/* routes */}
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/signup">Signup</Link>
+              </li>
+            </ul>
+            <Route exact path="/" component={home}/>
+            <Route exact path="/login" component={login}/>
+            <Route exact path="/signup" component={signup}/>
+            {/* we need navbar same in every page */}
+            {/* so in this way navbar will be same in everyone */}
           </div>
-          <div className="search-container">
-            <img className="search-icon" src="https://image.flaticon.com/icons/svg/483/483356.svg" alt="search-icon"/>
-            <input placeholder="Search"/>
-            <div className="search-results">
-              <ul>
-                <li className="search-results-row">
-                <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                  alt="user-dp"
-                />
-                <span>John Doe</span>
-                </li>
-                <li className="search-results-row">
-                <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                  alt="user-dp"
-                />
-                <span>John Doe</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="right-nav">
-            <div className="user">
-                <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                  alt="user-dp"
-                  id="user-dp"
-                />
-                <span>Abubakar</span>
-            </div>
-            <div className="nav-links">
-              <ul>
-                <li>Log In</li>
-                <li>Log Out</li>
-                <li>Register</li>
-              </ul>
-
-            </div>
-
-          </div>
-        </nav>
-        {/* we passed posts as props in postlist */}
-        <PostsList posts={posts} />
-      </div>
+      </Router>
+      
     );
   }
 }

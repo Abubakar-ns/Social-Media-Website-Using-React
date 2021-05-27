@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchPosts} from '../actions/posts';
+import { PostsList } from './';
 class App extends React.Component {
   //fetch post from api
   componentDidMount() {
@@ -9,11 +10,13 @@ class App extends React.Component {
   }
   
   render() {
-    //props contain posts and dispatch(automatically from react)
-    console.log('Props',this.props);
+    //props contain posts(from props) and dispatch(automatically from react)
+    //console.log('Props',this.props);
+    const {posts} = this.props;
     return (
       <div>
-        App
+        {/* we passed posts as props in postlist */}
+        <PostsList posts={posts} />
       </div>
     );
   }

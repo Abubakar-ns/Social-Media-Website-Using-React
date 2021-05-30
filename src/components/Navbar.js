@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import { logoutUser } from '../actions/auth';
+
 class Navbar extends Component {
+  LogOut=()=>{
+    localStorage.removeItem('token');
+    this.props.dispatch(logoutUser);
+  }
     render() {
+      const {auth} = this.props;
         return (
             <nav className="nav">
           <div className="left-div">
@@ -33,19 +41,36 @@ class Navbar extends Component {
             </div>
           </div>
           <div className="right-nav">
-            <div className="user">
-                <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                  alt="user-dp"
-                  id="user-dp"
-                />
-                <span>John Doe</span>
-            </div>
+          {auth.isLoggedIn && <div className="user">
+             
+             <img
+               src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+               alt="user-dp"
+               id="user-dp"
+             />
+             <span>{auth.user.name}</span>
+         </div>}
+            
             <div className="nav-links">
               <ul>
-                <li><Link to="/login">Log In</Link></li>
-                <li><Link to="/">Log Out</Link></li>
-                <li><Link to="/signup">SignUp</Link></li>
+                {!auth.isLoggedIn && 
+                  <li>
+                    <Link to="/login">Log In</Link>
+                  </li> 
+                }
+                {auth.isLoggedIn && 
+                  <li onClick={this.LogOut}>
+                    Log Out
+                  </li>
+                }
+                 {!auth.isLoggedIn && 
+                  <li>
+                    <Link to="/signup">SignUp</Link>
+                  </li>
+                }
+                
+               
+                
                 
               </ul>
 
@@ -56,5 +81,9 @@ class Navbar extends Component {
         );
     }
 }
-
-export default Navbar;
+function mapStatetoProps(state){
+  return {
+    auth: state.auth,
+  }
+}
+export default connect(mapStatetoProps)(Navbar);

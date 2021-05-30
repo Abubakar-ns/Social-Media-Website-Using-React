@@ -5,6 +5,7 @@ import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
 import { Home,Navbar,Page404,LogIn,SignUp } from './';
 import * as jwtDecode from 'jwt-decode';
+import { authenticateUser } from '../actions/auth';
 //dummy components
 const login = () =>(
   <div>Login</div>
@@ -24,6 +25,12 @@ class App extends React.Component {
       const user=jwtDecode(token);
       //we need doecode token to get user
       console.log('user',user);
+      //dispatch authenticate user action
+      this.props.dispatch(authenticateUser({
+          email: user.email,
+          _id: user.id,
+          name: user.name,
+      }));
     }
   }
   

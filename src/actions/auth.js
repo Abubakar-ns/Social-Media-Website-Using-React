@@ -1,5 +1,5 @@
 import { APIUrls } from '../helpers/urls';
-import {LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS} from './actionType';
+import {AUTHENTICATE_USER, LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS, LOG_OUT} from './actionType';
 import {getFormBody} from '../helpers/utils';
 export function startLogin(){
     return {
@@ -52,4 +52,16 @@ export function LogIn(email,password){
             });
 
     }
+    
+}
+export function authenticateUser (user){
+    return {
+        type: AUTHENTICATE_USER,
+        user,
+    };
+}
+export function logoutUser (){
+    return {
+        type: LOG_OUT,
+    };
 }

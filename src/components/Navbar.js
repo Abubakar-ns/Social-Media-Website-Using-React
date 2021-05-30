@@ -39,7 +39,7 @@ class Navbar extends Component {
                   alt="user-dp"
                   id="user-dp"
                 />
-                <span>Abubakar</span>
+                <span>John Doe</span>
             </div>
             <div className="nav-links">
               <ul>

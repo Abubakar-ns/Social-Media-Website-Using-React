@@ -1,5 +1,5 @@
 import { APIUrls } from '../helpers/urls';
-import {LOGIN_START} from './actionType';
+import {LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS} from './actionType';
 import {getFormBody} from '../helpers/utils';
 export function startLogin(){
     return {
@@ -7,13 +7,28 @@ export function startLogin(){
 
     }
 }
+export function loginFailed(errorMessage){
+    return {
+        type: LOGIN_FAILED,
+        error: errorMessage,
+
+    }
+}
+export function loginSuccess(user){
+    return {
+        type: LOGIN_SUCCESS,
+        user:user,
+
+    }
+}
 //async action requiring thunk so we'll return a function
 //url encoded stringgs
 //'login?email=a@a.com&password=1323'
 //we need to pass it this way
-export function Login(email,password){
-    return(dispath)=> {
-        const url=APIUrls.login;
+export function LogIn(email,password){
+    return(dispatch)=> {
+        dispatch(startLogin());
+        const url=APIUrls.login();
         fetch(url,{
             method: 'POST',
             //cn api thing
@@ -21,7 +36,20 @@ export function Login(email,password){
                 'Content-Type': 'application/x-ww-form-urlencoded',
             },
             body: getFormBody({email,password}),
-        });
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('data',data);
+                if(data.success){
+                    //dispatch action to save user
+                    localStorage.setItem('token',data.data.token);
+                    dispatch(loginSuccess(data.data.user));
+                }
+                else{
+                    dispatch(loginFailed(data.message));
+                }
+                
+            });
 
     }
 }

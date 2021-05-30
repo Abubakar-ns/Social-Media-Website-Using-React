@@ -3,7 +3,7 @@ export function getFormBody (params){
     for(let property in params){
         let encodedKey= encodeURIComponent(property);
         let encodedValue= encodeURIComponent(params[property]);
-        formBody(encodedKey + '=' +encodedValue);
+        formBody.push(encodedKey + '=' +encodedValue);
     }
     return formBody.join('&');
     //return this 'username=abu&password=123'

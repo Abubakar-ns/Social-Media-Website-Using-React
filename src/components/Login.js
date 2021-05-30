@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {LogIn} from '../actions/auth';
 
 class Login extends Component {
     constructor(props){
@@ -7,7 +9,7 @@ class Login extends Component {
         //uncontroled component
         // this.emailInputRef=React.createRef();
         // this.passwordInputRef=React.createRef();
-        
+
         //controlled components
         this.state={
             email: '',
@@ -16,13 +18,13 @@ class Login extends Component {
     }
     //controlled components
     handleEmailChange=(e)=>{
-        console.log('email',e.target.value);
+      //  console.log('email',e.target.value);
         this.setState({
             email: e.target.value,
         });
     }
     handlePasswordChange=(e)=>{
-        console.log('Password',e.target.value);
+       // console.log('Password',e.target.value);
         this.setState({
             password: e.target.value,
         });
@@ -32,12 +34,20 @@ class Login extends Component {
         e.preventDefault();
         // console.log('this.emailInputRef',this.emailInputRef);
         // console.log('this.passwordInputRef',this.passwordInputRef);
-        console.log('state',this.state);
+        //console.log('state',this.state);
+        //dispatch this action
+        const {email,password}=this.state;
+        if(email && password){
+            // since we havent conneccted this login.js component with store therefore we dont have access to props theredoent have dispatch theere fore cant dispatch this action
+            this.props.dispatch(LogIn(email,password));
+        }
     }
     render() {
+        const {error,inProgress} =this.props.auth;
         return (
             <form className="login-form">
                 <span className="login-signup-header">Log In</span>
+                {error && <div className="alert-error-dailog">{error}</div>}
                 <div className="field">
                     <input 
                         type="email" 
@@ -57,12 +67,25 @@ class Login extends Component {
                         ></input>
                 </div>
                 <div className="field">
-                    <button onClick={this.handleFormSubmit}>Log In</button>
+                    {inProgress ?
+                        <button onClick={this.handleFormSubmit} disabled={inProgress}>
+                            Logging in ..
+                        </button>
+                        :
+                        <button onClick={this.handleFormSubmit} disabled={inProgress}>
+                            Log In
+                        </button>
+                    }
+                    
                 </div>
 
             </form>
         );
     }
 }
-
-export default Login;
+function mapStateProps(state){
+    return {
+        auth:state.auth,
+    };
+}
+export default connect(mapStateProps)(Login);

@@ -15,7 +15,10 @@ class SignUp extends Component {
                     <input type="password" placeholder="Password" required></input>
                 </div>
                 <div className="field">
-                    <button>Log In</button>
+                    <input type="password" placeholder="Confirm Password" required></input>
+                </div>
+                <div className="field">
+                    <button>Sign Up</button>
                 </div>
             </form>
         );

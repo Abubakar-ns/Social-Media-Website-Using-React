@@ -1,14 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import { BrowserRouter as Router,Redirect,Route,Switch} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
 import { Home,Navbar,Page404,LogIn,SignUp } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 
+const Settings=()=><div>Setting</div>
+const PrivateRoute=(privateRouteProps)=>{
+    const {isLoggedIn,path,component:Component}=privateRouteProps;
+    return <Route path={path} render={(props)=>{
+      return isLoggedIn?<Component{...props}/>:<Redirect to="login"/>
+    }}
+      />
+};
 class App extends React.Component {
   //fetch post from api
+ 
   componentDidMount() {
     //dispatch an action to fethc post which will be asynchronous
     this.props.dispatch(fetchPosts());
@@ -31,7 +40,7 @@ class App extends React.Component {
   render() {
     //props contain posts(from props) and dispatch(automatically from react)
     console.log('Props',this.props);
-    const {posts} = this.props;
+    const {posts,auth} = this.props;
     return (
       <div className="App">
           <Router>
@@ -52,6 +61,7 @@ class App extends React.Component {
             }}/>
             <Route path="/login" component={LogIn}/>
             <Route path="/signup" component={SignUp}/>
+            <PrivateRoute path="/settings" component={Settings} isLoggedIn={auth.isLoggedIn}/>
             <Route component={Page404}/>
             {/* we need navbar same in every page */}
             {/* so in this way navbar will be same in everyone */}
@@ -65,6 +75,7 @@ class App extends React.Component {
 function mapStatetoProps(state){
   return {
     posts: state.posts,
+    auth: state.auth
   }
 }
 App.propTypes = {

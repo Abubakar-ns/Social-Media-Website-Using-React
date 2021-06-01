@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {LogIn} from '../actions/auth';
+import {clearAuthState, LogIn} from '../actions/auth';
 
 class Login extends Component {
     constructor(props){
@@ -16,6 +16,10 @@ class Login extends Component {
             password: ''
         }
     }
+    componentWillUnmount() {
+        this.props.dispatch(clearAuthState());
+    }
+    
     //controlled components
     handleEmailChange=(e)=>{
       //  console.log('email',e.target.value);

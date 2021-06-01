@@ -8,6 +8,7 @@ import {
          SIGNUP_START,
          SIGNUP_FAILED,
          SIGNUP_SUCCESS,
+         CLEAR_AUTH_STATE,
 
 
         } from './actionType';
@@ -142,3 +143,9 @@ export function startSignin() {
       user: user,
     };
   }
+  /**clear auth state */
+export function clearAuthState(){
+  return {
+    type: CLEAR_AUTH_STATE,
+  }
+}

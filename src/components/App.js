@@ -3,11 +3,10 @@ import {connect} from 'react-redux';
 import { BrowserRouter as Router,Redirect,Route,Switch} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
-import { Home,Navbar,Page404,LogIn,SignUp } from './';
+import { Home,Navbar,Page404,LogIn,SignUp,Settings } from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 
-const Settings=()=><div>Setting</div>
 const PrivateRoute=(privateRouteProps)=>{
     const {isLoggedIn,path,component:Component}=privateRouteProps;
     return <Route path={path} render={(props)=>{

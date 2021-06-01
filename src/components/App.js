@@ -4,15 +4,8 @@ import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
 import { Home,Navbar,Page404,LogIn,SignUp } from './';
-import * as jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
-//dummy components
-const login = () =>(
-  <div>Login</div>
-)
-const signup = () =>(
-  <div>SignUp</div>
-)
 
 class App extends React.Component {
   //fetch post from api
@@ -20,26 +13,27 @@ class App extends React.Component {
     //dispatch an action to fethc post which will be asynchronous
     this.props.dispatch(fetchPosts());
     //the token we stored in local storage
-    const token = localStorage.getItem('token');
-    if(token){
-      const user=jwtDecode(token);
-      //we need doecode token to get user
-      console.log('user',user);
-      //dispatch authenticate user action
-      this.props.dispatch(authenticateUser({
-          email: user.email,
-          _id: user.id,
-          name: user.name,
-      }));
-    }
+    // const token = localStorage.getItem('token');
+    // if(token){
+    //   const user=jwtDecode(token);
+    //   //we need doecode token to get user
+    //   console.log('user',user);
+    //   //dispatch authenticate user action
+    //   this.props.dispatch(authenticateUser({
+    //       email: user.email,
+    //       _id: user.id,
+    //       name: user.name,
+    //   }));
+    // }
   }
   
   render() {
     //props contain posts(from props) and dispatch(automatically from react)
-    //console.log('Props',this.props);
+    console.log('Props',this.props);
     const {posts} = this.props;
     return (
-      <Router>
+      <div className="App">
+          <Router>
           <div>
             {/* navbar */}
             <Navbar/>
@@ -63,7 +57,7 @@ class App extends React.Component {
             </Switch>
           </div>
       </Router>
-      
+      </div>
     );
   }
 }

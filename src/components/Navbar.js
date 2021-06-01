@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import { logoutUser } from '../actions/auth';
+// import { logoutUser } from '../actions/auth';
 
 class Navbar extends Component {
-  LogOut=()=>{
-    localStorage.removeItem('token');
-    this.props.dispatch(logoutUser);
-  }
+  // LogOut=()=>{
+  //   localStorage.removeItem('token');
+  //   this.props.dispatch(logoutUser);
+  // }
     render() {
       const {auth} = this.props;
         return (
@@ -58,20 +58,16 @@ class Navbar extends Component {
                     <Link to="/login">Log In</Link>
                   </li> 
                 }
-                {auth.isLoggedIn && 
+                {/* {auth.isLoggedIn && 
                   <li onClick={this.LogOut}>
                     Log Out
                   </li>
-                }
+                } */}
                  {!auth.isLoggedIn && 
                   <li>
                     <Link to="/signup">SignUp</Link>
                   </li>
                 }
-                
-               
-                
-                
               </ul>
 
             </div>

@@ -37,15 +37,21 @@ class Login extends Component {
         //console.log('state',this.state);
         //dispatch this action
         const {email,password}=this.state;
+        console.log('email' , email );
+        console.log('pass' , password)
         if(email && password){
             // since we havent conneccted this login.js component with store therefore we dont have access to props theredoent have dispatch theere fore cant dispatch this action
             this.props.dispatch(LogIn(email,password));
         }
+        this.setState({
+            email:'',
+            password:'',
+        })
     }
     render() {
         const {error,inProgress} =this.props.auth;
         return (
-            <form className="login-form">
+            <form method="post" action='#' className="login-form">
                 <span className="login-signup-header">Log In</span>
                 {error && <div className="alert-error-dailog">{error}</div>}
                 <div className="field">

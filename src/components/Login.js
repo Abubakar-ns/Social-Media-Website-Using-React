@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router';
 import {clearAuthState, LogIn} from '../actions/auth';
 
 class Login extends Component {
@@ -53,7 +54,12 @@ class Login extends Component {
         })
     }
     render() {
-        const {error,inProgress} =this.props.auth;
+
+        const {error,inProgress,isLoggedIn} =this.props.auth;
+        if(isLoggedIn){
+            //redirect given by react-router
+            return <Redirect to="/"/>
+        }
         return (
             <form method="post" action='#' className="login-form">
                 <span className="login-signup-header">Log In</span>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import {clearAuthState, signin} from '../actions/auth';
 
@@ -54,7 +55,10 @@ class Register extends React.Component {
   };
 
   render() {
-    const {  error, inProggress} = this.props.auth;
+    const {  error, inProgress,isLoggedIn} = this.props.auth;
+    if(isLoggedIn){
+      return <Redirect to="/"/>
+  }
     return (
       <form method="post" action="#" className="login-form">
          {error && <div className='alert error-dailog'>{error}</div> }
@@ -98,7 +102,8 @@ class Register extends React.Component {
           />
         </div>
         <div className="field">
-        <button onClick={this.handleFormSubmit} disabled={inProggress}>{inProggress ? 'Registering....' : 'Register'}</button>        </div>
+        <button onClick={this.handleFormSubmit} disabled={inProgress}>{inProgress ? 'Registering....' : 'Register'}</button>        
+        </div>
       </form>
     );
   }

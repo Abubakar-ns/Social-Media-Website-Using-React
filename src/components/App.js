@@ -13,18 +13,19 @@ class App extends React.Component {
     //dispatch an action to fethc post which will be asynchronous
     this.props.dispatch(fetchPosts());
     //the token we stored in local storage
-    // const token = localStorage.getItem('token');
-    // if(token){
-    //   const user=jwtDecode(token);
-    //   //we need doecode token to get user
-    //   console.log('user',user);
-    //   //dispatch authenticate user action
-    //   this.props.dispatch(authenticateUser({
-    //       email: user.email,
-    //       _id: user.id,
-    //       name: user.name,
-    //   }));
-    // }
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if(token){
+      const user=jwtDecode(token);
+      //we need doecode token to get user
+      console.log('user',user);
+      //dispatch authenticate user action
+      this.props.dispatch(authenticateUser({
+          email: user.email,
+          _id: user.id,
+          name: user.name,
+      }));
+    }
   }
   
   render() {

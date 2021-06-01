@@ -1,8 +1,10 @@
 import { APIUrls } from '../helpers/urls';
 import {
+        AUTHENTICATE_USER,
          LOGIN_FAILED, 
          LOGIN_START, 
          LOGIN_SUCCESS, 
+         LOG_OUT,
          SIGNUP_START,
          SIGNUP_FAILED,
          SIGNUP_SUCCESS,
@@ -10,6 +12,7 @@ import {
 
         } from './actionType';
 import {getFormbody} from '../helpers/utils';
+
 
 export function startLogin(){
     return {
@@ -68,6 +71,22 @@ export function LogIn(email,password){
     }
     
 }
+/*Authenticate user through jwt token */
+export function authenticateUser(user){
+    return {
+      type: AUTHENTICATE_USER,
+      user,
+    }
+}
+export function logoutUser(){
+  return {
+    type: LOG_OUT,
+  }
+}
+
+
+
+/*******signin********/
 export function signin(email, password , confirm_password ,  name) {
     return function (dispatch) {
       dispatch(startSignin()); //we are doing this to set the inprogress state prop of auth while we check tteh auth

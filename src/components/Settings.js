@@ -4,11 +4,16 @@ class Settings extends Component {
     constructor (props){
         super(props);
         this.state={
-            name: '',
+            name: props.auth.user.name,
             password:'',
-            confirmPassword:'',
+            confirm_password:'',
             editMode: false,
         }
+    }
+    handleChange=(feildName,val)=>{
+        this.setState({
+            [feildName]:val,
+        })
     }
     render() {
         const {user}= this.props.auth;
@@ -19,35 +24,34 @@ class Settings extends Component {
                 <img
                     src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
                     alt="user-dp"
-                    id="user-dp"
                 />
                 </div>
                 <div className="field">
-                    <div className="feild-label">Email</div>
-                    <div className="feild-label">{user.email}</div>
+                    <div className="field-label">Email</div>
+                    <div className="field-value">{user.email}</div>
                 </div>
                 <div className="field">
-                    <div className="feild-label">Name</div>
+                    <div className="field-label">Name</div>
                     {
                     editMode
                     ?
                     <input 
                         type="text" 
-                        onChange={()=>this.handleChange()} 
+                        onChange={(e)=>this.handleChange('name',e.target.value)} 
                         value={this.state.name}
                     />
                     :
-                    <div className="feild-label">{user.name}</div>}
+                    <div className="field-value">{user.name}</div>}
                 </div>
-                {editMode && <div className="feild">
+                {editMode && <div className="field">
                     <div className="field-label">New Password</div>
                     <input type="password" 
-                        onChange={()=>this.handleChange()}
+                        onChange={(e)=>this.handleChange('password',e.target.value)}
                         value={this.state.password}
                      />
                      <div className="field-label">Confirm Password</div>
                     <input type="password" 
-                        onChange={()=>this.handleChange()}
+                        onChange={(e)=>this.handleChange('confirm_password',e.target.value)}
                         value={this.state.confirmPassword}
                      />
                     </div>}
@@ -57,10 +61,10 @@ class Settings extends Component {
                         ?
                         <button className="button-save-btn">Save</button>
                         :
-                    <button className="button-edit-btn">Edit Profile</button>
+                    <button className="button-edit-btn" onClick={()=>this.handleChange('editMode',true)}>Edit Profile</button>
                     }
                     {
-                        editMode && <div className="go-back">
+                        editMode && <div className="go-back" onClick={()=>this.handleChange('editMode',false)}>
                             Go Back
                         </div>
                     }
@@ -69,7 +73,7 @@ class Settings extends Component {
         );
     }
 }
-export default mapStateToProps({auth}){
+function mapStateToProps( {auth} ) {
     return {
         auth,
     };

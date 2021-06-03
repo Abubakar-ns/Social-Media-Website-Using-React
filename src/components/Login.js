@@ -55,7 +55,8 @@ class Login extends Component {
     }
     render() {
 
-        const {error,inProgress,isLoggedIn} =this.props.auth;
+        const {user,error,inProgress,isLoggedIn} =this.props.auth;
+        console.log('user login',user);
         const {from}=this.props.location.state || {from:{pathname:'/'}};
         if(isLoggedIn){
             //redirect given by react-router
@@ -64,7 +65,7 @@ class Login extends Component {
         return (
             <form method="post" action='#' className="login-form">
                 <span className="login-signup-header">Log In</span>
-                {error && <div className="alert-error-dailog">{error}</div>}
+                {error && <div className="alert-error-dialog">{error}</div>}
                 <div className="field">
                     <input 
                         type="email" 

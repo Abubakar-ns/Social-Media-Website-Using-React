@@ -3,9 +3,12 @@ import {connect} from 'react-redux';
 import { BrowserRouter as Router,Redirect,Route,Switch} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {fetchPosts} from '../actions/posts';
+import {fetchUserFriends} from '../actions/friends';
 import { Home,Navbar,Page404,LogIn,SignUp,Settings} from './';
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
+import {  getAuthTokenFromLocalStorage } from '../helpers/utils';
+import User from './User';
 
 const PrivateRoute=(privateRouteProps)=>{
     const {isLoggedIn,path,component:Component}=privateRouteProps;
@@ -30,25 +33,26 @@ class App extends React.Component {
     //dispatch an action to fethc post which will be asynchronous
     this.props.dispatch(fetchPosts());
     //the token we stored in local storage
-    const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
     console.log(token);
     if(token){
       const user=jwtDecode(token);
       //we need doecode token to get user
-      console.log('user',user);
+      console.log('user after decode',user);
       //dispatch authenticate user action
       this.props.dispatch(authenticateUser({
           email: user.email,
-          _id: user.id,
+          _id: user._id,
           name: user.name,
       }));
+      this.props.dispatch(fetchUserFriends());
     }
   }
   
   render() {
     //props contain posts(from props) and dispatch(automatically from react)
     console.log('Props',this.props);
-    const {posts,auth} = this.props;
+    const {posts,auth,friends} = this.props;
     return (
       <div className="App">
           <Router>
@@ -65,11 +69,27 @@ class App extends React.Component {
               path="/" 
               render={(props) =>{
                 // by not passing props we only get posts as props but now we pass every prop like location history with destrucuting
-                return <Home {...props} posts={posts}/>
+                return <Home 
+                {...props} 
+                posts={posts}
+                friends={friends}
+                isLoggedIn={auth.isLoggedIn}
+                />
             }}/>
             <Route path="/login" component={LogIn}/>
             <Route path="/signup" component={SignUp}/>
-            <PrivateRoute path="/settings" component={Settings} isLoggedIn={auth.isLoggedIn}/>
+            
+            <PrivateRoute 
+              path="/settings" 
+              component={Settings} 
+              isLoggedIn={auth.isLoggedIn}
+            />
+            <PrivateRoute 
+              path="/user/:userId" 
+              component={User} 
+              isLoggedIn={auth.isLoggedIn}
+            />
+
             <Route component={Page404}/>
             {/* we need navbar same in every page */}
             {/* so in this way navbar will be same in everyone */}

@@ -14,3 +14,7 @@ export function getFormbody (params){
     return formBody.join('&');//this will join all array elemnts by a '&' and return a string https://www.w3schools.com/jsref/jsref_join.asp
    //return this 'username=abu&password=123'
 }   
+
+export function getAuthTokenFromLocalStorage(){
+    return localStorage.getItem('token');
+}

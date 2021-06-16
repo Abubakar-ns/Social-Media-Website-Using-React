@@ -51,8 +51,9 @@ class App extends React.Component {
   
   render() {
     //props contain posts(from props) and dispatch(automatically from react)
-    console.log('Props',this.props);
+    
     const {posts,auth,friends} = this.props;
+    // console.log('final Props friends',friends);
     return (
       <div className="App">
           <Router>
@@ -103,7 +104,8 @@ class App extends React.Component {
 function mapStatetoProps(state){
   return {
     posts: state.posts,
-    auth: state.auth
+    auth: state.auth,
+    friends: state.friends,
   }
 }
 App.propTypes = {

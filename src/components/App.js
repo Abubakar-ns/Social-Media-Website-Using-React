@@ -34,7 +34,7 @@ class App extends React.Component {
     this.props.dispatch(fetchPosts());
     //the token we stored in local storage
     const token = getAuthTokenFromLocalStorage();
-    console.log(token);
+    // console.log(token);
     if(token){
       const user=jwtDecode(token);
       //we need doecode token to get user

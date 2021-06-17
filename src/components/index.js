@@ -7,4 +7,6 @@ import LogIn from './Login';
 import SignUp from './SignUp';
 import Settings from './Settings';
 import CreatePost from './CreatePost';
-export{PostsList,App,Navbar,Home,Page404,LogIn,SignUp,Settings,CreatePost};
+import Post from './Post';
+import Comment from './Comment';
+export{PostsList,App,Navbar,Home,Page404,LogIn,SignUp,Settings,CreatePost,Post,Comment};

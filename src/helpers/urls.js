@@ -8,6 +8,10 @@ export const APIUrls={
     userFriends: () => `${API_ROOT}/friendship/fetch_user_friends`,
     addFriend:(userId)=> `${API_ROOT}/friendship/create_friendship?user_id=${userId}`,
     removeFriend:(userId)=> `${API_ROOT}/friendship/remove_friendship?user_id=${userId}`,
+    createPost:()=> `${API_ROOT}/posts/create`,
+    createComment: () => `${API_ROOT}/comments/`,
+    userSearch: (searchText) => `${API_ROOT}/users/search?text=${searchText}`,
+    toggleLike: (id,LikeType) => `${API_ROOT}/likes/toggle?likeable_id=${id}&likeable_type=${LikeType}`,
     //since we need page and limit we are making our posts dynaic
     fetchPosts: (page=1,limit=25) => 
         `${API_ROOT}/posts?page=${page}&limit=${limit}`,

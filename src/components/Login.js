@@ -42,8 +42,8 @@ class Login extends Component {
         //console.log('state',this.state);
         //dispatch this action
         const {email,password}=this.state;
-        console.log('email' , email );
-        console.log('pass' , password)
+        // console.log('email' , email );
+        // console.log('pass' , password)
         if(email && password){
             // since we havent conneccted this login.js component with store therefore we dont have access to props theredoent have dispatch theere fore cant dispatch this action
             this.props.dispatch(LogIn(email,password));
@@ -56,7 +56,7 @@ class Login extends Component {
     render() {
 
         const {user,error,inProgress,isLoggedIn} =this.props.auth;
-        console.log('user login',user);
+        // console.log('user login',user);
         const {from}=this.props.location.state || {from:{pathname:'/'}};
         if(isLoggedIn){
             //redirect given by react-router

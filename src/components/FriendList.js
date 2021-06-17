@@ -2,7 +2,7 @@ import React from 'react';
 import FriendListItem from './FriendListItem';
 
 const FriendList = (props) => {
-  console.log('props of friends',props);
+  // console.log('props of friends',props);
   return (
     <div className="friends-list">
       <div className="header">Friends</div>

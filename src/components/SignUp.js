@@ -47,9 +47,9 @@ class Register extends React.Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
     const { name ,email, password , confirmedPassword} = this.state;
-    console.log('email', email);
-    console.log('pass', password);
-    console.log('c-pass', confirmedPassword);
+    // console.log('email', email);
+    // console.log('pass', password);
+    // console.log('c-pass', confirmedPassword);
 
     this.props.dispatch(signin(email, password , confirmedPassword ,  name));
   };

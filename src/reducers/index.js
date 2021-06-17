@@ -4,11 +4,13 @@ import posts from './posts';
 import auth from './auth';
 import profile from './profile';
 import friends from './friends';
+import searchUsers from './search';
 export default combineReducers({
     posts,
     auth,
     profile,
-    friends
+    friends,
+    searchUsers,
 });
 //our current state
 //{posts:[]}
